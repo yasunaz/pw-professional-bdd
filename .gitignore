@@ -1,0 +1,16 @@
+node_modules/
+downloads/
+reports/
+test-results/
+.vscode/
+.features-gen/
+**/reports
+**/screenshots
+**/videos
+*.log
+.settings
+.project
+.DS_Store
+
+allure-report/
+allure-results

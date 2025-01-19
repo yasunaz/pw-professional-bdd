@@ -1,0 +1,28 @@
+{
+   "name": "pw-bddtest",
+   "version": "1.0.0",
+   "main": "index.js",
+   "scripts": {
+      "test": "npx bddgen && npx playwright test",
+      "headed": "npx bddgen && npx playwright test --headed",
+      "report": "npx playwright show-report reports",
+      "usermngmt": "npx bddgen src/features/userManagement/login.feature && npx playwright test --headed",
+      "allureGenerate": "allure generate ./allure-results -o ./allure-report",
+      "allureOpen":"allure open ./allure-report"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "description": "",
+   "devDependencies": {
+      "@cucumber/cucumber": "^11.2.0",
+      "@types/node": "^22.10.2",
+      "allure-commandline": "^2.32.0",
+      "allure-playwright": "^3.0.9",
+      "playwright": "^1.49.1",
+      "playwright-bdd": "^8.0.1",
+      "prettier": "^3.4.2",
+      "ts-node": "^10.9.2",
+      "typescript": "^5.7.3"
+   }
+}
