@@ -3,7 +3,7 @@
    "version": "1.0.0",
    "main": "index.js",
    "scripts": {
-      "test": "npx bddgen && npx playwright test",
+      "test": "npx bddgen && npx playwright test --headed",
       "headed": "npx bddgen && npx playwright test --headed",
       "report": "npx playwright show-report reports",
       "usermngmt": "npx bddgen src/features/userManagement/login.feature && npx playwright test --headed",

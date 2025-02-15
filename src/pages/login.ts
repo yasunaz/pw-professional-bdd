@@ -1,9 +1,9 @@
 import { Page } from 'playwright/test';
 
 // --- Element Locators --- //
-const loc_username = 'input#user-name';
-const loc_password = 'input#password';
-const loc_signinBttn = 'input#login-button';
+const loc_username = 'input#login-email';
+const loc_password = 'input#login-password';
+const loc_signinBttn = 'button#login-signin';
 
 // --- User Actions --- //
 export class Login {
@@ -21,7 +21,7 @@ export class Login {
     *   await loginPage.open();
     */
    async open() {
-      const testSite = process.env.SITE || 'https://www.saucedemo.com/v1/';
+      const testSite = process.env.SITE || 'https://student-portal.swaggear.life/login';
       await this.page.goto(testSite);
    }
 
@@ -36,11 +36,11 @@ export class Login {
     * @param pass password
     */
    async processLogin(user?: string, pass?: string) {
-      const username = process.env.TESTUSER || user || 'standard_user';
+      const username = process.env.TESTUSER || user || 'hello@gmail.com';
       const password = process.env.PASSWORD || pass || 'secret_sauce';
 
       // enter username, password and click Sign In button
-      
+
       await this.page.locator(loc_username).fill(username);
       await this.page.locator(loc_password).fill(password);
       await this.page.locator(loc_signinBttn).click();

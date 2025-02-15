@@ -8,15 +8,13 @@ const testDir = defineBddConfig({
 
 export default defineConfig({
    testDir,
-   timeout: 30_000,
+   timeout: 5000,
    use: {
       viewport: { width: 1920, height: 1080 },
       trace: 'on',
       screenshot: 'on',
-      launchOptions: {
-         slowMo: 1000,
-      },
+
    },
-   reporter: [['line'], ['allure-playwright']],
+   reporter: [['line'], ['allure-playwright'], ['html']],
    outputDir: 'reports/artifacts',
 });

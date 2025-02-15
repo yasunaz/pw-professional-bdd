@@ -1,5 +1,5 @@
 import { test, testInfoFixtures } from '../fixtures';
-import { Page, Locator, Route, Response } from '@playwright/test';
+import { Page, Locator, Route, Response, APIResponse } from '@playwright/test';
 
 export async function screenshot(context: testInfoFixtures['stepInfo'], message: string = 'screenshot') {
    const { page, testInfo } = context;
@@ -54,10 +54,30 @@ export async function interceptWithMock(page: Page, type: string, url: string, s
    }
 } //end::method
 
-export async function waitAPI(page: Page, url: string): Promise<Response> {
-   const res = page.waitForResponse(url);
+export async function interceptApiResponse(page: Page, urlPattern: string, holder: APIResponse[]) {
+   return await page.route(urlPattern, async (route) => {
+      const response = await route.fetch();
+      holder.push(response);
+      await route.continue();
+      return response;
+   });
+}
+
+export async function waitForAPIRequest(page: Page, url: string) {
+   const reqPromise = page.waitForRequest(url); // Store the promise
+   try {
+      const req = await reqPromise; // Await the promise to get the request
+      return req;
+   } catch (error) {
+      const errMsg = `No request was captured for endpoint: ${url}. Error: ${error}`;
+      throw new Error(errMsg);
+   }
+}
+
+export async function waitForAPIResponse(page: Page, url: string): Promise<Response> {
+   const res = await page.waitForResponse(url);
    if (!res) {
-      const errMsg = `No response was captured for URL: ${url}`;
+      const errMsg = `No response was captured for endpoint: ${url}`;
       throw new Error(errMsg);
    }
    return res;
